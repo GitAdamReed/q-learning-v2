@@ -120,18 +120,23 @@ while gameRunning:
                               scanY, scanWidth, scanHeight)
     scanGroup.add(scanSprite)
     scanCollision = pygame.sprite.groupcollide(scanGroup, itemGroup, True, False, collided = None)
+    #Item nearby
     if scanCollision != {}:
         itemNearby = True
         reward = 5
         #print("There is an item nearby!")
+    #No item nearby
     else:
         #reward = 10
         scanGroup.empty()
         #print("There isn't another item nearby")
     
+    #Item collision
     if collision != {}:
+        #Item collected and another item nearby
         if itemNearby:
             reward = 30
+        #Item collected and no other items nearby
         else:
             reward = 20
         
