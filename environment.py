@@ -42,6 +42,7 @@ nReward = 1
 itemGroup = pygame.sprite.Group()
 numItems = 20
 scanGroup = pygame.sprite.GroupSingle()
+epsilon = 1 #PROBABILITY OF RANDOM ACTION BEING CHOSEN
 
 functions.drawItems(numItems, itemGroup, itemColour, 0)
 
@@ -92,7 +93,7 @@ while gameRunning:
     playerPosQW = int(round(playerPos[0] / 5))
     playerPosQH = int(round(playerPos[1] / 5))
     playerPosQ = np.array([playerPosQW, playerPosQH])
-    action = sa.RL_select_action(Q, playerPosQ, 1)
+    action = sa.RL_select_action(Q, playerPosQ, epsilon)
     
     if action == 0:
         charGroup.sprite.rect.y -= cDimensions
@@ -159,6 +160,8 @@ while gameRunning:
         charGroup.sprite.rect.y = 20
         functions.drawItems(numItems, itemGroup, itemColour, 0)
         score = 0
+        if epsilon > 0:
+            epsilon -= 0.1
         timeList.append(cTimer)
         print("Total time: " + str(format(cTimer, ".3f")))
         gameNum += 1
